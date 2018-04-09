@@ -48,11 +48,12 @@ def add_supply_to_memorial_day(holiday_hash, supply)
   # add the second argument to the memorial day array
 
   holiday_hash.each do |season,data|
-    data.each do |holiday, supply_array|
-      if holiday==:memorial_day
-        supply_array<<supply
-      end
-    end
+    data.each {|holiday,supply_array| supply_array<<supply if holiday==:memorial_day}
+    #data.each do |holiday, supply_array|
+      #if holiday==:memorial_day
+        #supply_array<<supply
+      #end
+    #end
   end
 
   #Cheating method below
