@@ -29,11 +29,12 @@ def add_supply_to_winter_holidays(holiday_hash, supply)
   # Christmas AND the New Year's arrays
 
   holiday_hash.each do |season,data|
-    if season==:winter
-      data.each do |holiday,supply_array|
-          supply_array<<supply
-      end
-    end
+    data.each {|holiday,supply_array| supply_array<<supply if season==:winter}
+    #if season==:winter
+      #data.each do |holiday,supply_array|
+          #supply_array<<supply
+      #end
+    #end
   end
 
   #Cheating method below
