@@ -87,18 +87,32 @@ def all_supplies_in_holidays(holiday_hash)
   # etc.
 
   holiday_hash.each do |season,data|
-
-
     puts "#{season.to_s.capitalize}:"
-
     data.each do |holiday,supply_array|
-      holiday_array=holiday.to_s.split("_")
+      #consolidated the following lines of code in line #109-
+      #holiday_array=holiday.to_s.split("_")
+      #holiday_capitalized = holiday_array.collect do |word|
 
-      holiday_capitalized = holiday_array.collect do |word|
-        word.capitalize
-      end
+      #holiday was a symbol (eg :christmas)
+      #is it okay to change it to string then an array?
+      #This does make the code cleaner without creating new variables
+      #to temporarily hold data
 
-      puts "  #{holiday_capitalized.join(" ")}: #{supply_array.join(", ")}"
+      #holiday_capitalized = holiday.to_s.split("_").collect do |word|
+
+      #I guess you can't convert holiday from symbol to string,
+      #then split the string to an array, collect the valentines_day_supplies
+      #from word.capitalize and then join the array into a string again
+      #all in one line. Oh well.
+      #holiday=holiday.to_s.split("_").collect.join(" ") do |word|
+
+      holiday=holiday.to_s.split("_").collect {|word| word.capitalize}
+          #word.capitalize
+      #end
+
+      #puts "  #{holiday_capitalized.join(" ")}: #{supply_array.join(", ")}"
+      #puts "  #{holiday}: #{supply_array.join(", ")}"
+      puts "  #{holiday.join(" ")}: #{supply_array.join(", ")}"
 
     end
   end
@@ -113,11 +127,11 @@ def all_holidays_with_bbq(holiday_hash)
 
   holiday_hash.each do |season,data|
     data.each do |holiday,supply_array|
-      supply_array.each do |supply|
-        if supply=="BBQ"
-          bbq_holidays<<holiday
-        end
-      end
+      supply_array.each {|supply| bbq_holidays<<holiday if supply=="BBQ"}
+        #if supply=="BBQ"
+          #bbq_holidays<<holiday
+        #end
+      #end
     end
   end
   bbq_holidays
